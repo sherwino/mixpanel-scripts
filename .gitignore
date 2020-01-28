@@ -1,0 +1,9 @@
+# exclude csv data
+data/*
+
+# but keep the folder
+!somefolder/.gitkeep 
+
+# Node Modules, and env vars
+node_modules
+.env

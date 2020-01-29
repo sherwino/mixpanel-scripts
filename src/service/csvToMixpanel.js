@@ -6,14 +6,39 @@ const path = null;
 const filepath = path ? path : "../../data/ebookUserHistory.csv";
 
 fs.createReadStream(filepath)
-  .on("error", () => {
+  .on("error", err => {
     // handle error
+    console.log("Error", err);
   })
 
-  .pipe(parse())
+  .pipe(
+    parse({
+      trim: true,
+      skip_empty_lines: true
+    })
+  )
   .on("data", row => {
-    // use row data
-    console.log({ row });
+    // If no header we will have to map using idx
+    // TODO: Confirm that the data is mapped corrected because we don't have headers
+    const currentObj = {
+      ID: row[0],
+      EbookUUID: row[1],
+      UserUUID: row[2],
+      ChapterUUID: row[3],
+      PageId: row[4],
+      ParagraphLastRead: row[5],
+      Action: row[6],
+      Link: row[7],
+      DateCreated: row[8],
+      Longitute: row[9],
+      ipAddress: row[10],
+      platform: row[11],
+      language: row[12],
+      userReceivedUUID: row[13],
+      userSentUUID: row[14]
+    };
+
+    console.log(obj);
   })
 
   .on("end", () => {

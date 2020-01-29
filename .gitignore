@@ -7,3 +7,6 @@ data/*
 # Node Modules, and env vars
 node_modules
 .env
+
+# OS Files
+.DS_Store

@@ -15,27 +15,27 @@ const mixpanel = Mixpanel.init(MIXPANEL_TOKEN, {
 // //     key: 'valid api key for project'
 
 // needs to be in the system once for it to show up in the interface
-mixpanel.track("ebook user event", {
-  ID: "04660ef6-ba47-4477-9bf2-db21e6fdd7e5",
-  EbookUUID: "b3e194d5-20d7-405e-ab4d-70a30dc1c212",
-  UserUUID: "6IyODdz5xmvNdmGunirr6a",
-  ChapterUUID: 2,
-  PageId: null,
-  ParagraphLastRead: 2,
-  Action: null,
-  Link: null,
-  DateCreated: (Date.now() / 1000) | 0,
-  Longitute: null,
-  ipAddress: "96.85.179.94",
-  platform: null,
-  language: null,
-  userReceivedUUID: null,
-  userSentUUID: null
-});
+// mixpanel.track("ebook user event", {
+//   ID: "04660ef6-ba47-4477-9bf2-db21e6fdd444",
+//   EbookUUID: "04660ef6-ba47-4477-9bf2-db21e6fdd444",
+//   UserUUID: "6IyODdz5xmvNdmGunirr6a",
+//   ChapterUUID: 2,
+//   PageId: null,
+//   ParagraphLastRead: 2,
+//   Action: null,
+//   Link: null,
+//   DateCreated: (Date.now() / 1000) | 0,
+//   Longitute: null,
+//   ipAddress: "96.85.179.94",
+//   platform: null,
+//   language: null,
+//   userReceivedUUID: null,
+//   userSentUUID: null
+// });
 
-mixpanel.import("old event", new Date(2020, 1, 20, 12, 34, 56), {
-  ID: "04660ef6-ba47-4477-9bf2-db21e6fdd7e5",
-  EbookUUID: "b3e194d5-20d7-405e-ab4d-70a30dc1c212",
+mixpanel.import("ebook user event", new Date(2020, 1, 11, 12, 34, 56), {
+  ID: "04660ef6-ba47-4477-9bf2-db21e6fd7777",
+  EbookUUID: "04660ef6-ba47-4477-9bf2-db21e6fd7777",
   UserUUID: "6IyODdz5xmvNdmGunirr6a",
   ChapterUUID: 2,
   PageId: null,

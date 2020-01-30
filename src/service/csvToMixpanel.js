@@ -20,9 +20,8 @@ const limiter = new Bottleneck({
 const mixPanelInitialized = mixpanel && mixpanel.config.key;
 
 const path = null;
-let count = 0;
 let megaObj = [];
-let newObj = [];
+let stagingObj = [];
 
 const filepath = path ? path : "../../data/ebookUserHistory.csv";
 
@@ -83,20 +82,19 @@ read
     });
 
     for (let i = 0; i < megaObj.length; i++) {
-      newObj.push(megaObj[i]);
+      stagingObj.push(megaObj[i]);
 
-      if (newObj.length % 50 === 0) {
-        const arrayOfEvents = newObj;
+      if (stagingObj.length % 50 === 0) {
+        const arrayOfEvents = stagingObj;
         if (mixPanelInitialized) {
           limiter
             .schedule(() => {
-              // mixpanel.import_batch(arrayOfEvents);
+              mixpanel.import_batch(arrayOfEvents);
               process.stdout.write(`Sending: ${arrayOfEvents[0].ID} \r`);
             })
             .then(result => {
               /* handle result */
-              console.log("successful submission pls clear array ⚠️");
-              process.exit(1);
+              process.stdout.write(`Submitted ${i} of ${megaObj.length} \r`);
             })
             .catch(err => {
               console.log("Error importing to MixPanel", err);
@@ -105,7 +103,7 @@ read
               process.exit(1);
             });
         }
-        newObj = [];
+        stagingObj = [];
       }
     }
   })
@@ -120,46 +118,3 @@ read
     read.unpipe();
     console.log("Stream has been destroyed and file has been closed");
   });
-
-// const output = []
-// parse(`
-//   "1","2","3"
-//   "a","b","c"
-// `, {
-//   trim: true,
-//   skip_empty_lines: true
-// })
-// // Use the readable stream api
-// .on('readable', function(){
-//   let record
-//   while (record = this.read()) {
-//     output.push(record)
-//   }
-// })
-// // When we are done, test that the parsed output matched what expected
-// .on('end', function(){
-//   assert.deepEqual(
-//     output,
-//     [
-//       [ '1','2','3' ],
-//       [ 'a','b','c' ]
-//     ]
-//   )
-// })
-
-// const parser = parse({
-//   delimiter: ':'
-// }, function(err, records){
-//   assert.deepEqual(
-//     records,
-//     [
-//       [ 'root','x','0','0','root','/root','/bin/bash' ],
-//       [ 'someone','x','1022','1022','','/home/someone','/bin/bash' ]
-//     ]
-//   )
-// })
-// // Write data to the stream
-// parser.write("root:x:0:0:root:/root:/bin/bash\n")
-// parser.write("someone:x:1022:1022::/home/someone:/bin/bash\n")
-// // Close the readable stream
-// parser.end()
